@@ -1,0 +1,9 @@
+Feature,Source,Meaning,Role
+US_SP500_prev_return,sp500_daily.csv,Previous US trading day's S&P 500 log return,Cross-market spillover signal (secondary - US VIX proved more stable)
+US_VIX_prev_close,vix_us_daily.csv,Previous US trading day's VIX closing level,Regime gate + prediction feature
+US_VIX_prev_chg1d,vix_us_daily.csv,Previous US trading day's VIX change,PRIMARY signal - used for regime gate AND the prediction rule itself
+SKEW_30D_prev / SKEW_14D_prev,daily_volatility_features.csv,"Yesterday's NIFTY put/call IV skew (30D, 14D)",Tested addition - did not improve accuracy in practice
+India_VIX_prev_close / _chg1d,hist_india_vix_*.csv,Yesterday's India VIX level and change,Tested addition - weaker standalone signal than US VIX (56% vs 62% accuracy)
+NIFTY_prev_return,FUTIDX_NIFTY_*.csv (Underlying Value),NIFTY's own previous-day log return,"CONFIRMATION signal - used to classify agree/disagree/neutral, and as the strictness-sweep variable"
+ATM_IV_30D_prev,daily_volatility_features.csv,Yesterday's NIFTY 30-day ATM implied volatility,"Used to compute the target (NIFTY_IV_chg1d), not as an input feature here"
+rolling_corr_60,Computed live from US_SP500_prev_return + NIFTY_prev_return,60-day rolling correlation between US and NIFTY returns,Tested regime detector - explains 2025 weakness but too little data to use as a model feature
